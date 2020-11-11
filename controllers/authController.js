@@ -21,7 +21,7 @@ module.exports = {
       return;
     }
     const exists = await User.findOne({
-      $or: [{ email: user.email }, { identification: user.identification }],
+       email: user.email
     });
     if (exists) {
       res.status(401).json({
@@ -42,7 +42,8 @@ module.exports = {
           .then((user) => {
             res.status(201).json(user);
           })
-          .catch((err) =>
+          .catch((err) =>{
+            console.log(err);
             res.status(500).json({
               error: {
                 message: err.messag,
@@ -50,7 +51,9 @@ module.exports = {
                 stack: 'save user to mongoDB [registerUser]',
               },
             })
-          );
+          }
+        );
+          
       });
     });
   },
